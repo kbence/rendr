@@ -1,0 +1,44 @@
+{
+  "groups": [
+    {
+      "name": "rendr",
+      "children": ["rendr-service", "rendr-worker"]
+    },
+    {
+      "name": "rendr-service",
+      "children": ["rendr-server", "mongodb-server"]
+    }
+  ],
+  "services": [
+    {
+      "name": "rendr-server",
+      "path": ".",
+      "commands": {
+        "build": "go build -o rendr",
+        "launch": "./rendr run-server"
+      },
+      "watch": {
+        "include": [".", "./api", "./cmd"]
+      }
+    },
+    {
+      "name": "rendr-worker",
+      "path": ".",
+      "commands": {
+        "build": "go build -o rendr",
+        "launch": "./rendr run-worker"
+      },
+      "watch": {
+        "include": [".", "./api", "./cmd"]
+      }
+    },
+    {
+      "name": "mongodb-server",
+      "path": ".",
+      "commands": {
+        "launch": "mongod --dbpath ./.data/mongodb",
+        "stop": "pkill mongod"
+      }
+    }
+  ]
+}
