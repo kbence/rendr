@@ -10,7 +10,7 @@ import (
 
 type JSONModelFunc func() interface{}
 type JSONGetFunc func(key string) (interface{}, error)
-type JSONPostFunc func(key string, content interface{}) error
+type JSONPostFunc func(content interface{}) (interface{}, error)
 type JSONPutFunc func(key string, content interface{}) error
 type JSONDeleteFunc func(key string) error
 
@@ -54,10 +54,11 @@ func SetupJSONObjectRouter(r *mux.Router, objectHandler JSONObjectHandler) {
 		err := json.NewDecoder(req.Body).Decode(object)
 
 		if err == nil {
-			err := objectHandler.Post(mux.Vars(req)["key"], object)
+			createdObject, err := objectHandler.Post(object)
 
 			if err == nil {
 				w.WriteHeader(201)
+				response.Data = createdObject
 				response.Success = true
 			} else {
 				w.WriteHeader(500)
