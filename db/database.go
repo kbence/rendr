@@ -5,7 +5,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
-var defaultConnectionString = "mongodb://localhost/rendr"
+var defaultConnectionString = "mongodb://localhost:27017/rendr"
 
 func GetDatabase() *mgo.Database {
 	connection, err := mgo.Dial(util.GetEnvWithDefault("RENDR_DB_URL", defaultConnectionString))

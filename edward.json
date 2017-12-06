@@ -17,8 +17,11 @@
         "build": "go build -o rendr",
         "launch": "./rendr run-server"
       },
+      "launch_checks": {
+        "ports": [5678]
+      },
       "watch": {
-        "include": [".", "./api", "./cmd"]
+        "include": [".", "./cmd", "./db", "./rpc", "./util"]
       }
     },
     {
@@ -29,7 +32,7 @@
         "launch": "./rendr run-worker"
       },
       "watch": {
-        "include": [".", "./api", "./cmd"]
+        "include": [".", "./cmd", "./db", "./rpc", "./util"]
       }
     },
     {

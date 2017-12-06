@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package rpc;
+
+service Job {
+    rpc Create (JobCreateRequest) returns (JobCreateResponse) {};
+    rpc List (JobListRequest) returns (JobListResponse) {};
+}
+
+message JobCreateRequest {
+    string name = 1;
+}
+
+message JobCreateResponse {
+    string id = 1;
+}
+
+message JobListRequest {
+    repeated Status states = 1;
+}
+
+message JobListResponse {
+    repeated JobDefinition jobs = 1;
+}
+
+message JobDefinition {
+    string id = 1;
+    string name = 2;
+    string status = 3;
+}
+
+enum Status {
+    QUEUED = 0;
+    INPROGRESS = 1;
+    FINISHED = 2;
+    ABORTED = 3;
+}

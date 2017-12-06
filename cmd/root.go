@@ -10,6 +10,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(NewRunServerCommand())
 	rootCmd.AddCommand(NewRunWorkerCommand())
+	rootCmd.AddCommand(NewJobCommand())
 }
 
 // Execute runs randr command/subcommands
